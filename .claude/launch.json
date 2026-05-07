@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "execiq",
+      "runtimeExecutable": "/Users/daniel.kelly/execiq/start.sh",
+      "runtimeArgs": [],
+      "port": 8080
+    }
+  ]
+}
