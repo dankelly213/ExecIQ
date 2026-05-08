@@ -48,6 +48,18 @@
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:rgba(79,142,247,.3); border-radius:2px; }
     #clerk-sign-in * { font-family:'Inter',sans-serif !important; }
+    /* Chat panel */
+    #chat-panel { transform:translateX(100%); transition:transform .28s cubic-bezier(.4,0,.2,1); }
+    #chat-panel.open { transform:translateX(0); }
+    .chat-bubble-user { background:#4f8ef7; color:#fff; border-radius:18px 18px 4px 18px; }
+    .chat-bubble-ai { background:#f1f5f9; color:#1e293b; border-radius:18px 18px 18px 4px; }
+    .chat-bubble-email { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; }
+    .email-copy-btn { transition:all .15s; }
+    .email-copy-btn:hover { background:#dcfce7; }
+    .email-copy-btn.copied { background:#166534; color:#fff; }
+    .chip { display:inline-flex; align-items:center; padding:5px 12px; border-radius:9999px; font-size:12px; font-weight:500; background:#f1f5f9; color:#475569; border:1px solid #e2e8f0; cursor:pointer; transition:all .15s; white-space:nowrap; }
+    .chip:hover { background:#e0e7ff; color:#4338ca; border-color:#c7d2fe; }
+    #chat-messages { scrollbar-width:thin; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -345,6 +357,132 @@
     </div>
 
   </main>
+</div>
+
+<!-- ─── Chat Panel ─────────────────────────────────────────────────────────── -->
+<div id="chat-panel" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl flex flex-col z-40 border-l border-slate-100">
+
+  <!-- Header -->
+  <div class="flex items-center gap-3 px-4 py-3.5 border-b border-slate-100 bg-white flex-shrink-0">
+    <div class="w-8 h-8 rounded-full bg-accent-500 flex items-center justify-center flex-shrink-0">
+      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+      </svg>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="font-semibold text-slate-800 text-sm leading-none">Ask AI</div>
+      <div id="chat-exec-label" class="text-xs text-slate-400 mt-0.5 truncate">Select a profile</div>
+    </div>
+    <button onclick="openRepSettings()" title="Your details (for email drafts)"
+      class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition flex-shrink-0">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      </svg>
+    </button>
+    <button onclick="toggleChat()" title="Close"
+      class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition flex-shrink-0">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Quick action chips -->
+  <div id="chat-chips" class="px-4 py-3 border-b border-slate-100 flex gap-2 overflow-x-auto flex-shrink-0">
+    <button class="chip" onclick="sendQuickMessage('Draft an email using the best template for this executive based on their profile')">✉️ Draft email</button>
+    <button class="chip" onclick="sendQuickMessage('Draft a business interview email — use Template 1')">🎙️ Business interview</button>
+    <button class="chip" onclick="sendQuickMessage('Draft a sporting event invite — use Template 2')">🏟️ Sporting event</button>
+    <button class="chip" onclick="sendQuickMessage('Give me 3 conversation starters I can use with this executive')">💬 Conversation starters</button>
+    <button class="chip" onclick="sendQuickMessage('What topics or approaches should I avoid?')">⚠️ What to avoid</button>
+  </div>
+
+  <!-- Messages -->
+  <div id="chat-messages" class="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+    <div id="chat-empty-msg" class="flex flex-col items-center justify-center h-full text-center px-4">
+      <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center mb-3">
+        <svg class="w-6 h-6 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+      </div>
+      <p class="text-slate-600 text-sm font-medium">Ask anything about this executive</p>
+      <p class="text-slate-400 text-xs mt-1 leading-relaxed">Use the chips above for quick actions, or type your own question below.</p>
+    </div>
+  </div>
+
+  <!-- Typing indicator (hidden by default) -->
+  <div id="chat-typing" class="hidden px-4 pb-2 flex-shrink-0">
+    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-2xl rounded-bl-sm bg-slate-100">
+      <span class="flex gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay:0ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay:150ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style="animation-delay:300ms"></span>
+      </span>
+      <span class="text-xs text-slate-500">Thinking…</span>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="px-4 pb-4 pt-2 border-t border-slate-100 flex-shrink-0">
+    <div class="flex items-end gap-2">
+      <textarea id="chat-input" rows="1" placeholder="Ask about this executive…"
+        class="flex-1 resize-none px-3 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 transition leading-relaxed"
+        style="max-height:120px; overflow-y:auto;"
+        onkeydown="handleChatKey(event)" oninput="autoResizeTextarea(this)"></textarea>
+      <button id="chat-send-btn" onclick="sendChat()"
+        class="w-9 h-9 rounded-xl flex items-center justify-center text-white flex-shrink-0 transition"
+        style="background:#4f8ef7">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Chat toggle button (shown when profile is loaded) -->
+<button id="chat-toggle-btn" onclick="toggleChat()"
+  class="hidden fixed bottom-6 right-6 z-30 flex items-center gap-2 px-4 py-2.5 rounded-full text-white text-sm font-semibold shadow-lg transition hover:shadow-xl hover:-translate-y-0.5"
+  style="background:#4f8ef7">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+  </svg>
+  Ask AI
+</button>
+
+<!-- Rep Settings Modal -->
+<div id="rep-settings-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
+    <div class="flex items-center gap-3 mb-5">
+      <div class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
+        <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="font-semibold text-slate-800">Your Details</div>
+        <div class="text-xs text-slate-400">Used to personalise email drafts</div>
+      </div>
+    </div>
+    <div class="space-y-3">
+      <div>
+        <label class="text-xs font-medium text-slate-600 block mb-1">Your name</label>
+        <input id="rep-name-input" type="text" placeholder="e.g. Sarah Johnson"
+          class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500" />
+      </div>
+      <div>
+        <label class="text-xs font-medium text-slate-600 block mb-1">Your company</label>
+        <input id="rep-company-input" type="text" placeholder="e.g. Acme Corp"
+          class="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500" />
+      </div>
+    </div>
+    <div class="flex gap-2 mt-5">
+      <button onclick="closeRepSettings()"
+        class="flex-1 py-2 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 transition">Cancel</button>
+      <button onclick="saveRepSettings()"
+        class="flex-1 py-2 rounded-lg text-sm font-semibold text-white transition"
+        style="background:#4f8ef7">Save</button>
+    </div>
+  </div>
 </div>
 
 <!-- Error Toast -->
@@ -786,6 +924,13 @@ function setView(view) {
   // Highlight All Profiles nav item
   document.getElementById('nav-all-profiles').classList.toggle('active', view === 'all-profiles');
 
+  // Show / hide chat toggle button
+  const chatBtn = document.getElementById('chat-toggle-btn');
+  if (chatBtn) chatBtn.classList.toggle('hidden', view !== 'profile');
+
+  // If switching away from current profile, close chat panel
+  if (view !== 'profile' && chatOpen) toggleChat();
+
   if (view === 'empty')         document.getElementById('empty-state').classList.remove('hidden');
   else if (view === 'skeleton') document.getElementById('skeleton-state').classList.remove('hidden');
   else if (view === 'profile')  document.getElementById('profile-state').classList.remove('hidden');
@@ -806,6 +951,252 @@ function showError(msg) {
 // ─── Utils ────────────────────────────────────────────────────────────────────
 function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function escAttr(s) { return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+// ─── Chat widget ──────────────────────────────────────────────────────────────
+let chatOpen = false;
+let chatHistory = [];           // [{role,content}] sent to API
+let chatProfileKey = null;      // track which profile is loaded in chat
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const panel = document.getElementById('chat-panel');
+  const btn   = document.getElementById('chat-toggle-btn');
+  panel.classList.toggle('open', chatOpen);
+
+  if (chatOpen) {
+    // If a new profile is shown, reset conversation
+    const profileKey = currentProfile ? currentProfile.name : null;
+    if (profileKey !== chatProfileKey) {
+      chatProfileKey = profileKey;
+      chatHistory = [];
+      clearChatMessages();
+      const label = document.getElementById('chat-exec-label');
+      label.textContent = currentProfile ? currentProfile.name : 'No profile loaded';
+    }
+    setTimeout(() => document.getElementById('chat-input')?.focus(), 300);
+    // First-time nudge: prompt for rep details if not set
+    if (!localStorage.getItem('repName') && !localStorage.getItem('repSettingsSkipped')) {
+      setTimeout(openRepSettings, 400);
+    }
+  }
+
+  // Update toggle button label
+  if (btn) {
+    btn.innerHTML = chatOpen
+      ? `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Close`
+      : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg> Ask AI`;
+  }
+}
+
+function clearChatMessages() {
+  const container = document.getElementById('chat-messages');
+  container.innerHTML = `
+    <div id="chat-empty-msg" class="flex flex-col items-center justify-center h-full text-center px-4">
+      <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center mb-3">
+        <svg class="w-6 h-6 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+      </div>
+      <p class="text-slate-600 text-sm font-medium">Ask anything about this executive</p>
+      <p class="text-slate-400 text-xs mt-1 leading-relaxed">Use the chips above for quick actions, or type your own question below.</p>
+    </div>`;
+}
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text || !currentProfile) return;
+
+  // Clear input and hide empty state
+  input.value = '';
+  autoResizeTextarea(input);
+  document.getElementById('chat-empty-msg')?.remove();
+
+  // Append user bubble
+  appendChatMessage('user', text);
+  chatHistory.push({ role: 'user', content: text });
+
+  // Disable send
+  const sendBtn = document.getElementById('chat-send-btn');
+  sendBtn.disabled = true; sendBtn.style.opacity = '0.5';
+  document.getElementById('chat-typing').classList.remove('hidden');
+  scrollChatToBottom();
+
+  const repName    = localStorage.getItem('repName')    || '';
+  const repCompany = localStorage.getItem('repCompany') || '';
+
+  try {
+    const headers = await getAuthHeaders();
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        profile: currentProfile,
+        messages: chatHistory,
+        rep_name: repName,
+        rep_company: repCompany,
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      if (res.status === 429) throw new Error('Rate limit — please wait 60 seconds.');
+      throw new Error((err.detail || 'Chat error').substring(0, 120));
+    }
+
+    const data = await res.json();
+    const reply = data.reply || '';
+    const emailDraft = data.email_draft || null;
+
+    document.getElementById('chat-typing').classList.add('hidden');
+
+    if (reply) appendChatMessage('assistant', reply);
+    if (emailDraft) appendEmailDraft(emailDraft);
+
+    // Add assistant reply to history (include email if present)
+    const fullReply = reply + (emailDraft ? `\n\n---EMAIL DRAFT---\n${emailDraft}\n---END EMAIL---` : '');
+    chatHistory.push({ role: 'assistant', content: fullReply });
+
+  } catch (e) {
+    document.getElementById('chat-typing').classList.add('hidden');
+    appendChatMessage('error', e.message || 'Something went wrong.');
+    // Remove the last user message from history on error
+    chatHistory.pop();
+  } finally {
+    sendBtn.disabled = false; sendBtn.style.opacity = '1';
+    scrollChatToBottom();
+  }
+}
+
+function sendQuickMessage(text) {
+  if (!currentProfile) {
+    showError('Please open a profile first.');
+    return;
+  }
+  if (!chatOpen) toggleChat();
+  // Small delay so panel animation finishes
+  setTimeout(() => {
+    const input = document.getElementById('chat-input');
+    if (input) { input.value = text; autoResizeTextarea(input); }
+    sendChat();
+  }, chatOpen ? 0 : 320);
+}
+
+function appendChatMessage(role, text) {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+
+  if (role === 'user') {
+    div.className = 'flex justify-end';
+    div.innerHTML = `<div class="chat-bubble-user px-4 py-2.5 text-sm leading-relaxed max-w-xs">${escHtml(text)}</div>`;
+  } else if (role === 'assistant') {
+    div.className = 'flex justify-start';
+    // Simple markdown-ish rendering: bold, line breaks
+    const formatted = escHtml(text)
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+    div.innerHTML = `<div class="chat-bubble-ai px-4 py-2.5 text-sm leading-relaxed max-w-xs">${formatted}</div>`;
+  } else {
+    // error
+    div.className = 'flex justify-center';
+    div.innerHTML = `<div class="px-3 py-2 rounded-xl bg-red-50 border border-red-100 text-xs text-red-500 max-w-xs text-center">${escHtml(text)}</div>`;
+  }
+
+  container.appendChild(div);
+  scrollChatToBottom();
+}
+
+function appendEmailDraft(emailText) {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'flex justify-start w-full';
+
+  // Split subject line from body if present
+  const lines = emailText.split('\n');
+  let subject = '';
+  let bodyLines = lines;
+  if (lines[0].toLowerCase().startsWith('subject:')) {
+    subject = lines[0].replace(/^subject:\s*/i, '').trim();
+    bodyLines = lines.slice(1).filter((l, i) => !(i === 0 && l.trim() === ''));
+  }
+  const bodyText = bodyLines.join('\n').trim();
+  const copyId = 'email-copy-' + Date.now();
+
+  div.innerHTML = `
+    <div class="chat-bubble-email p-4 w-full max-w-sm">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">✉️ Email Draft</span>
+      </div>
+      ${subject ? `<div class="text-xs text-slate-500 mb-1"><strong>Subject:</strong> ${escHtml(subject)}</div>` : ''}
+      <pre id="${copyId}-text" class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap font-sans">${escHtml(bodyText)}</pre>
+      <button id="${copyId}-btn" onclick="copyEmailDraft('${copyId}')"
+        class="email-copy-btn mt-3 w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold text-emerald-700 border border-emerald-200">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        Copy email
+      </button>
+    </div>`;
+
+  container.appendChild(div);
+  scrollChatToBottom();
+}
+
+function copyEmailDraft(id) {
+  const textEl = document.getElementById(`${id}-text`);
+  const btn    = document.getElementById(`${id}-btn`);
+  if (!textEl || !btn) return;
+  navigator.clipboard.writeText(textEl.textContent).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Copied!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Copy email`;
+    }, 2500);
+  });
+}
+
+function scrollChatToBottom() {
+  const el = document.getElementById('chat-messages');
+  if (el) el.scrollTop = el.scrollHeight;
+}
+
+function handleChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendChat();
+  }
+}
+
+function autoResizeTextarea(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+// ─── Rep Settings ─────────────────────────────────────────────────────────────
+function openRepSettings() {
+  document.getElementById('rep-name-input').value    = localStorage.getItem('repName')    || '';
+  document.getElementById('rep-company-input').value = localStorage.getItem('repCompany') || '';
+  document.getElementById('rep-settings-modal').classList.remove('hidden');
+}
+
+function closeRepSettings() {
+  document.getElementById('rep-settings-modal').classList.add('hidden');
+  localStorage.setItem('repSettingsSkipped', '1');
+}
+
+function saveRepSettings() {
+  const name    = document.getElementById('rep-name-input').value.trim();
+  const company = document.getElementById('rep-company-input').value.trim();
+  localStorage.setItem('repName',    name);
+  localStorage.setItem('repCompany', company);
+  closeRepSettings();
+}
+
+// Close rep modal on backdrop click
+document.getElementById('rep-settings-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeRepSettings();
+});
 </script>
 </body>
 </html>

@@ -4,7 +4,7 @@ import json
 import os
 import re
 import time
-from typing import Optional
+from typing import Any, Optional
 
 import anthropic
 import httpx
@@ -89,6 +89,18 @@ async def verify_token(authorization: Optional[str] = Header(None)) -> str:
 class ProfileRequest(BaseModel):
     name: str
     company: str
+
+
+class ChatMessage(BaseModel):
+    role: str   # "user" | "assistant"
+    content: str
+
+
+class ChatRequest(BaseModel):
+    profile: dict[str, Any]
+    messages: list[ChatMessage]
+    rep_name: str = ""
+    rep_company: str = ""
 
 
 # ── Prompts ────────────────────────────────────────────────────────────────────
@@ -240,6 +252,144 @@ async def delete_profile(pid: str, user_id: str = Depends(verify_token)):
         .execute(),
     )
     return {"ok": True}
+
+
+@app.post("/api/chat")
+async def chat(req: ChatRequest, user_id: str = Depends(verify_token)):
+    if not _anthropic.api_key:
+        raise HTTPException(status_code=500, detail="ANTHROPIC_API_KEY not configured")
+
+    p = req.profile
+    angles_text = "\n".join(
+        f"  • {a.get('title','')}: {a.get('reasoning','')} (source: {a.get('source_url','n/a')})"
+        for a in (p.get("outreach_angles") or [])
+    )
+    sources_text = "\n".join(
+        f"  • {s.get('title','')} — {s.get('url','')}"
+        for s in (p.get("sources") or [])
+    )
+    rep_ctx = (
+        f"The sales rep's name is {req.rep_name} at {req.rep_company}. "
+        "Reference them as the sender in any emails."
+        if req.rep_name else
+        "The sales rep's name is not provided; use a placeholder like [Your Name] in emails."
+    )
+
+    rep_name_first = req.rep_name.split()[0] if req.rep_name else "[Your Name]"
+
+    system = f"""You are an executive intelligence assistant helping a B2B sales rep prepare personalised outreach.
+
+## Executive Profile: {p.get('name','Unknown')}
+**Title:** {p.get('title','')}
+**Summary:** {p.get('summary','')}
+**Sports & Teams:** {', '.join(p.get('sports_and_teams') or []) or 'None found'}
+**Hobbies & Lifestyle:** {', '.join(p.get('hobbies_and_lifestyle') or []) or 'None found'}
+**Causes & Philanthropy:** {', '.join(p.get('causes_and_philanthropy') or []) or 'None found'}
+**Alma Mater:** {', '.join(p.get('alma_mater') or []) or 'None found'}
+**Outreach Angles:**
+{angles_text or '  (none)'}
+**Research Sources:**
+{sources_text or '  (none)'}
+**Confidence:** {p.get('confidence','')} — {p.get('confidence_note','')}
+
+## Email Templates
+
+There are exactly TWO templates. Choose based on the profile — no exceptions, no mixing.
+
+---
+
+### TEMPLATE A — Sports / Hobby Invite
+**Use this when:** the executive has a clear sports team affiliation, follows a sport, or has a hobby that lends itself to an event invite (golf, tennis, etc.).
+Keep it short, casual, and friendly. No business pitch. No value add.
+
+---EMAIL DRAFT---
+Subject: [Team name] tickets?
+
+Hi [First name],
+
+I'm your Account Executive at {req.rep_company or "[My Company]"} and saw that you are a fan of [INSERT SPECIFIC TEAM OR SPORT FROM PROFILE].
+
+Would you want to go to the game on [DATE / TIME]? {req.rep_company or "[My Company]"} is able to get tickets.
+
+Let me know if you're interested — thanks!
+
+-{rep_name_first}
+---END EMAIL---
+
+Placeholder rules for Template A:
+- Fill in the team or sport from the profile
+- Leave [DATE / TIME] exactly as written — the rep fills this in
+- Do NOT add any business context or value proposition
+
+---
+
+### TEMPLATE B — Business / Interest Outreach
+**Use this for everything else:** interviews, podcasts, articles, business initiatives, causes, philanthropy, alumni connections, or any non-sports hook.
+
+Structure:
+**Paragraph 1:** 1–2 sentences referencing the single most specific piece of research — name the interview, quote, initiative, or cause directly.
+**Paragraph 2:** 1 sentence connecting that to why {req.rep_company or "[My Company]"} is reaching out. Then on a new line write exactly: "Insert your value add here."
+**Paragraph 3:** 1 sentence proposing a specific day and time next week.
+
+---EMAIL DRAFT---
+Subject: [Specific reference to the hook]
+
+Hi [First name],
+
+[Paragraph 1 — specific hook from research]
+
+[Paragraph 2 — 1 bridge sentence]. Insert your value add here.
+
+[Paragraph 3 — specific day and time CTA]
+
+Best,
+{rep_name_first}
+---END EMAIL---
+
+Placeholder rules for Template B:
+- NEVER fill in the rep's value proposition — always write "Insert your value add here." on its own line, verbatim
+- The hook must name something real and specific from the profile
+- Suggest a real day/time (e.g. "Are you available Tuesday at 2pm EST?")
+
+---
+
+## FIRM RULES — apply to both templates
+- NEVER use "I hope this email finds you well" or any filler opener
+- NEVER write more than 3 short paragraphs
+- Sound like a peer, not a vendor
+- If sports/hobby AND business context both exist, default to Template A — keep it simple
+
+## Your role
+{rep_ctx}
+Answer questions about this executive using the profile above.
+When drafting an email, pick the correct template and write the complete email between the ---EMAIL DRAFT--- and ---END EMAIL--- delimiters shown in the template above."""
+
+    try:
+        resp = _anthropic.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=1000,
+            system=system,
+            messages=[{"role": m.role, "content": m.content} for m in req.messages],
+        )
+        reply = resp.content[0].text if resp.content else ""
+
+        # Detect email draft delimiters
+        email_match = re.search(
+            r"---EMAIL DRAFT---\s*(.*?)\s*---END EMAIL---",
+            reply,
+            re.DOTALL,
+        )
+        if email_match:
+            email_body = email_match.group(1).strip()
+            surrounding = (reply[: email_match.start()] + reply[email_match.end() :]).strip()
+            return {"reply": surrounding or "Here's the draft email:", "email_draft": email_body}
+
+        return {"reply": reply, "email_draft": None}
+
+    except anthropic.RateLimitError:
+        raise HTTPException(status_code=429, detail="Rate limit — wait 60 seconds and retry.")
+    except anthropic.APIError as e:
+        raise HTTPException(status_code=500, detail=f"API error: {e}")
 
 
 # Static files are served via the GET "/" route above.
