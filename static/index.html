@@ -292,6 +292,18 @@
         </div>
       </div>
 
+      <!-- Business Initiatives -->
+      <div id="p-initiatives-section" class="hidden mb-6">
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+          <h3 class="text-base font-semibold text-slate-800">Business Initiatives</h3>
+          <span class="text-xs text-slate-400 font-normal">last 2 years</span>
+        </div>
+        <div id="p-initiatives" class="space-y-3"></div>
+      </div>
+
       <!-- Outreach Angles -->
       <div class="mb-6">
         <div class="flex items-center gap-2 mb-4">
@@ -689,6 +701,41 @@ function renderProfile(p) {
   renderTags('p-hobbies', p.hobbies_and_lifestyle, 'bg-purple-100 text-purple-700');
   renderTags('p-causes', p.causes_and_philanthropy, 'bg-red-100 text-red-700');
   renderTags('p-education', p.alma_mater, 'bg-amber-100 text-amber-700');
+
+  // Business initiatives
+  const initiatives = p.business_initiatives || [];
+  const initSection = document.getElementById('p-initiatives-section');
+  const initEl = document.getElementById('p-initiatives');
+  if (initiatives.length > 0) {
+    initSection.classList.remove('hidden');
+    initEl.innerHTML = '';
+    initiatives.forEach(item => {
+      const sourceLink = item.source_url
+        ? `<a href="${escAttr(item.source_url)}" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-1 mt-2 text-xs text-accent-500 hover:text-accent-400 font-medium">
+             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+             </svg>View source</a>` : '';
+      const div = document.createElement('div');
+      div.className = 'bg-white border border-slate-100 rounded-xl p-4 shadow-sm';
+      div.innerHTML = `
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 rounded-lg bg-indigo-50 flex items-center justify-center flex-shrink-0 text-base">📌</div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 mb-1 flex-wrap">
+              <span class="font-semibold text-slate-800 text-sm">${escHtml(item.initiative)}</span>
+              ${item.date ? `<span class="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full flex-shrink-0">${escHtml(item.date)}</span>` : ''}
+            </div>
+            ${item.quote ? `<p class="text-slate-500 text-sm leading-relaxed italic">"${escHtml(item.quote)}"</p>` : ''}
+            <p class="text-xs text-slate-400 mt-1">${escHtml(item.source || '')}</p>
+            ${sourceLink}
+          </div>
+        </div>`;
+      initEl.appendChild(div);
+    });
+  } else {
+    initSection.classList.add('hidden');
+  }
 
   // Outreach angles
   const anglesEl = document.getElementById('p-angles');

@@ -106,22 +106,32 @@ class ChatRequest(BaseModel):
 # ── Prompts ────────────────────────────────────────────────────────────────────
 SYSTEM = """You are an executive intelligence researcher for B2B sales teams.
 Research executives and extract personal interests, hobbies, and passions OUTSIDE of work.
+Also identify any key business objectives or initiatives they have publicly stated in the last 2 years.
 Focus on interviews, social media bios, charity boards, club memberships, sports teams, alumni networks.
 Return ONLY valid JSON — no markdown fences, no extra text."""
 
 SCHEMA = """{
   "name": "string",
   "title": "string (current role and company)",
-  "summary": "string (2-3 sentences about personal interests outside work)",
+  "summary": "string (2-3 sentences covering personal interests and recent business priorities)",
   "sports_and_teams": ["array of strings"],
   "hobbies_and_lifestyle": ["array of strings"],
   "causes_and_philanthropy": ["array of strings"],
   "alma_mater": ["array of strings"],
+  "business_initiatives": [
+    {
+      "initiative": "string (the business objective or priority — e.g. 'AI-driven supply chain transformation')",
+      "quote": "string or null (direct quote from the executive if available)",
+      "source": "string (interview, article, podcast, LinkedIn post, etc.)",
+      "source_url": "string or null",
+      "date": "string (approximate date — must be within last 2 years, e.g. 'March 2024')"
+    }
+  ],
   "outreach_angles": [
     {
-      "title": "string (e.g. 'Invite to Knicks game')",
+      "title": "string (e.g. 'Invite to Knicks game' or 'Reference AI initiative interview')",
       "reasoning": "string (evidence-based, quote source where possible)",
-      "category": "sports|culture|charity|networking|dining",
+      "category": "sports|culture|charity|networking|dining|business",
       "source_url": "string or null"
     }
   ],
@@ -148,15 +158,19 @@ async def generate_profile(req: ProfileRequest, user_id: str = Depends(verify_to
     if not _anthropic.api_key:
         raise HTTPException(status_code=500, detail="ANTHROPIC_API_KEY not configured")
 
-    prompt = f"""Research {req.name} at {req.company} and return their personal interests profile.
+    prompt = f"""Research {req.name} at {req.company} and return their intelligence profile.
 
-Use web search to find: interviews mentioning hobbies/passions, Twitter/X posts, charity boards,
-alumni associations, sports affiliations, club memberships, and personal quotes.
+Use web search to find:
+1. PERSONAL INTERESTS: interviews mentioning hobbies/passions, Twitter/X posts, charity boards,
+   alumni associations, sports affiliations, club memberships, and personal quotes.
+2. BUSINESS INITIATIVES (last 2 years only): quotes or statements from interviews, podcasts,
+   LinkedIn posts, press releases, or articles about their key business priorities or initiatives.
+   Only include if you can identify a source and approximate date within the last 2 years.
 
 RULES:
-- Include source_url (exact URL) for each outreach_angle fact
-- List all useful pages in sources array
+- Include source_url (exact URL) for each outreach_angle and business_initiative
 - Quote or paraphrase the source in reasoning when possible
+- Only include business_initiatives with a verifiable source dated within the last 2 years
 - Set confidence "low" if data is sparse
 
 Return ONLY this JSON (no fences, exactly 3 outreach_angles):
