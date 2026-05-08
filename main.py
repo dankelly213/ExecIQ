@@ -169,6 +169,7 @@ Use web search to find:
 
 RULES:
 - Include source_url (exact URL) for each outreach_angle and business_initiative
+- For business_initiatives: use the direct post or article URL where possible (e.g. linkedin.com/posts/... or forbes.com/article/...), not just a profile page
 - Quote or paraphrase the source in reasoning when possible
 - Only include business_initiatives with a verifiable source dated within the last 12 months
 - Set confidence "low" if data is sparse
