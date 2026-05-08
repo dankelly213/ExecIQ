@@ -106,7 +106,7 @@ class ChatRequest(BaseModel):
 # ── Prompts ────────────────────────────────────────────────────────────────────
 SYSTEM = """You are an executive intelligence researcher for B2B sales teams.
 Research executives and extract personal interests, hobbies, and passions OUTSIDE of work.
-Also identify any key business objectives or initiatives they have publicly stated in the last 2 years.
+Also identify any key business objectives or initiatives they have publicly stated in the last 12 months.
 Focus on interviews, social media bios, charity boards, club memberships, sports teams, alumni networks.
 Return ONLY valid JSON — no markdown fences, no extra text."""
 
@@ -124,7 +124,7 @@ SCHEMA = """{
       "quote": "string or null (direct quote from the executive if available)",
       "source": "string (interview, article, podcast, LinkedIn post, etc.)",
       "source_url": "string or null",
-      "date": "string (approximate date — must be within last 2 years, e.g. 'March 2024')"
+      "date": "string (approximate date — must be within last 12 months, e.g. 'March 2025')"
     }
   ],
   "outreach_angles": [
@@ -165,12 +165,12 @@ Use web search to find:
    alumni associations, sports affiliations, club memberships, and personal quotes.
 2. BUSINESS INITIATIVES (last 2 years only): quotes or statements from interviews, podcasts,
    LinkedIn posts, press releases, or articles about their key business priorities or initiatives.
-   Only include if you can identify a source and approximate date within the last 2 years.
+   Only include if you can identify a source and approximate date within the last 12 months.
 
 RULES:
 - Include source_url (exact URL) for each outreach_angle and business_initiative
 - Quote or paraphrase the source in reasoning when possible
-- Only include business_initiatives with a verifiable source dated within the last 2 years
+- Only include business_initiatives with a verifiable source dated within the last 12 months
 - Set confidence "low" if data is sparse
 
 Return ONLY this JSON (no fences, exactly 3 outreach_angles):
