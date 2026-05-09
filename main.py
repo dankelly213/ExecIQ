@@ -144,6 +144,14 @@ SCHEMA = """{
 # ── Routes ─────────────────────────────────────────────────────────────────────
 
 @app.get("/")
+async def serve_landing():
+    path = os.path.join(os.path.dirname(__file__), "static", "landing.html")
+    with open(path) as f:
+        html = f.read()
+    return HTMLResponse(content=html)
+
+
+@app.get("/app")
 async def serve_index():
     path = os.path.join(os.path.dirname(__file__), "static", "index.html")
     with open(path) as f:

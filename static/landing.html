@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExecRadar — Executive Outreach Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: { 900: '#0f1a2e', 800: '#162035', 700: '#1e2d47', 600: '#243452' },
+            accent: { 500: '#4f8ef7', 400: '#6ba3fa', 300: '#93bbfb' }
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #4f8ef7 0%, #93bbfb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(79,142,247,0.15), transparent);
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: all .2s;
+    }
+    .feature-card:hover {
+      background: rgba(79,142,247,0.07);
+      border-color: rgba(79,142,247,0.2);
+      transform: translateY(-2px);
+    }
+    .login-btn {
+      background: #4f8ef7;
+      transition: all .2s;
+    }
+    .login-btn:hover {
+      background: #6ba3fa;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(79,142,247,0.35);
+    }
+    .mock-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .7s ease-out forwards; }
+    .fade-up-2 { animation: fadeUp .7s .15s ease-out both; }
+    .fade-up-3 { animation: fadeUp .7s .3s ease-out both; }
+    .fade-up-4 { animation: fadeUp .7s .45s ease-out both; }
+  </style>
+</head>
+<body class="bg-navy-900 text-white">
+
+  <!-- Nav -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5" style="background:rgba(15,26,46,0.85);backdrop-filter:blur(12px)">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-accent-500 flex items-center justify-center flex-shrink-0">
+          <svg class="w-4.5 h-4.5 text-white w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+        <span class="font-bold text-lg tracking-tight">ExecRadar</span>
+      </div>
+      <a href="/app" class="login-btn px-5 py-2 rounded-lg text-sm font-semibold text-white">
+        Login
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-glow min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
+    <div class="max-w-3xl mx-auto">
+
+      <div class="fade-up inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent-500/30 bg-accent-500/10 text-accent-300 text-xs font-medium mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse"></span>
+        AI-powered executive intelligence
+      </div>
+
+      <h1 class="fade-up-2 text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6">
+        Cut through the noise<br/>and
+        <span class="gradient-text"> get in the room</span>
+      </h1>
+
+      <p class="fade-up-3 text-lg text-slate-400 leading-relaxed mb-10 max-w-xl mx-auto">
+        ExecRadar finds what your executive prospects care about — so your outreach always lands.
+      </p>
+
+      <div class="fade-up-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/app" class="login-btn px-8 py-3.5 rounded-xl text-base font-bold text-white w-full sm:w-auto">
+          Get Started →
+        </a>
+        <a href="/app" class="px-8 py-3.5 rounded-xl text-base font-semibold text-slate-400 hover:text-white border border-white/10 hover:border-white/20 transition w-full sm:w-auto text-center">
+          Login
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mock profile card -->
+    <div class="fade-up-4 mt-20 w-full max-w-2xl mx-auto mock-card rounded-2xl p-6 text-left">
+      <div class="flex items-start gap-4 mb-5">
+        <div class="w-12 h-12 rounded-full bg-accent-500 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">SJ</div>
+        <div>
+          <div class="font-bold text-white text-lg">Sarah Johnson</div>
+          <div class="text-slate-400 text-sm">Chief Revenue Officer · Acme Corp</div>
+          <span class="inline-flex items-center gap-1 mt-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-900/40 text-green-400 border border-green-800/40">✓ High confidence</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 mb-5">
+        <div class="bg-white/5 rounded-xl p-3">
+          <div class="text-xs text-slate-500 mb-2">🏆 Sports & Teams</div>
+          <div class="flex flex-wrap gap-1">
+            <span class="px-2 py-0.5 rounded-full text-xs bg-blue-900/40 text-blue-300">Boston Celtics</span>
+            <span class="px-2 py-0.5 rounded-full text-xs bg-blue-900/40 text-blue-300">New England Patriots</span>
+          </div>
+        </div>
+        <div class="bg-white/5 rounded-xl p-3">
+          <div class="text-xs text-slate-500 mb-2">🎯 Hobbies</div>
+          <div class="flex flex-wrap gap-1">
+            <span class="px-2 py-0.5 rounded-full text-xs bg-purple-900/40 text-purple-300">Golf</span>
+            <span class="px-2 py-0.5 rounded-full text-xs bg-purple-900/40 text-purple-300">Marathon running</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white/5 rounded-xl p-4 border border-white/5">
+        <div class="text-xs text-slate-500 mb-2">⚡ Top Outreach Angle</div>
+        <div class="font-semibold text-white text-sm mb-1">Celtics / Knicks game invite</div>
+        <div class="text-slate-400 text-xs leading-relaxed">Sarah has mentioned the Celtics in three LinkedIn posts and attended a game in January. Tickets are a natural opener.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Features -->
+  <section class="py-28 px-6">
+    <div class="max-w-5xl mx-auto">
+
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything you need to <span class="gradient-text">open the door</span></h2>
+        <p class="text-slate-400 max-w-lg mx-auto">Stop guessing what to say. ExecRadar researches your prospect so you walk in with context, not cold outreach.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+        <div class="feature-card rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-blue-900/40 flex items-center justify-center mb-4 text-xl">🔍</div>
+          <h3 class="font-semibold text-white mb-2">Deep executive research</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">AI scans interviews, social media, charity boards, alumni networks, and press coverage to build a complete personal interest profile.</p>
+        </div>
+
+        <div class="feature-card rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-indigo-900/40 flex items-center justify-center mb-4 text-xl">📌</div>
+          <h3 class="font-semibold text-white mb-2">Business initiative tracking</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Surfaces quotes and priorities from the last 12 months — podcasts, LinkedIn posts, keynotes — so you reference what's top of mind right now.</p>
+        </div>
+
+        <div class="feature-card rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-purple-900/40 flex items-center justify-center mb-4 text-xl">✉️</div>
+          <h3 class="font-semibold text-white mb-2">AI-drafted outreach emails</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Ask the AI to draft a personalised email in seconds — sports invites, business interview hooks, or shared interest openers. You just fill in your value add.</p>
+        </div>
+
+        <div class="feature-card rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-green-900/40 flex items-center justify-center mb-4 text-xl">💬</div>
+          <h3 class="font-semibold text-white mb-2">Conversational AI assistant</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Ask anything — conversation starters, what to avoid, key talking points. The AI knows the profile and answers instantly.</p>
+        </div>
+
+        <div class="feature-card rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-amber-900/40 flex items-center justify-center mb-4 text-xl">🏟️</div>
+          <h3 class="font-semibold text-white mb-2">Sports & event intelligence</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Know exactly which teams your prospect follows. Draft a game invite with one click — the best door-opener in B2B sales.</p>
+        </div>
+
+        <div class="feature-card rounded-2xl p-6">
+          <div class="w-10 h-10 rounded-xl bg-rose-900/40 flex items-center justify-center mb-4 text-xl">💾</div>
+          <h3 class="font-semibold text-white mb-2">Saved profile library</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Every profile you research is saved to your account. Revisit and pick up where you left off before any call or meeting.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="mock-card rounded-3xl p-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to get in the room?</h2>
+        <p class="text-slate-400 mb-8">Start researching executives in under 60 seconds.</p>
+        <a href="/app" class="login-btn inline-block px-10 py-4 rounded-xl text-base font-bold text-white">
+          Get Started →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-8 px-6 text-center">
+    <div class="flex items-center justify-center gap-2 mb-2">
+      <div class="w-6 h-6 rounded-md bg-accent-500 flex items-center justify-center">
+        <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+      </div>
+      <span class="font-bold text-sm">ExecRadar</span>
+    </div>
+    <p class="text-slate-600 text-xs">Powered by Claude AI + Web Search</p>
+  </footer>
+
+</body>
+</html>
