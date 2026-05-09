@@ -151,6 +151,14 @@ async def serve_landing():
     return HTMLResponse(content=html)
 
 
+@app.get("/logo-preview")
+async def serve_logo_preview():
+    path = os.path.join(os.path.dirname(__file__), "static", "logo-preview.html")
+    with open(path) as f:
+        html = f.read()
+    return HTMLResponse(content=html)
+
+
 @app.get("/app")
 async def serve_index():
     path = os.path.join(os.path.dirname(__file__), "static", "index.html")

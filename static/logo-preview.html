@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExecRadar — Logo Options</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #0F172A; padding: 40px 24px; }
+    h1 { font-size: 14px; font-weight: 600; color: #64748B; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 40px; }
+    .options { display: flex; flex-direction: column; gap: 48px; }
+    .option { background: white; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; }
+    .option-label { padding: 16px 24px; border-bottom: 1px solid #F1F5F9; font-size: 12px; font-weight: 600; color: #94A3B8; text-transform: uppercase; letter-spacing: .06em; }
+    .option-label span { color: #0F172A; font-size: 14px; text-transform: none; letter-spacing: 0; }
+    .swatches { display: flex; }
+    .swatch { flex: 1; padding: 40px 32px; display: flex; flex-direction: column; align-items: center; gap: 32px; }
+    .swatch.light { background: #ffffff; }
+    .swatch.dark  { background: #0F172A; }
+    .swatch-label { font-size: 10px; font-weight: 500; color: #94A3B8; text-transform: uppercase; letter-spacing: .06em; }
+    .swatch.dark .swatch-label { color: #475569; }
+    .logo-row { display: flex; align-items: center; gap: 10px; }
+    .wordmark { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+    .wordmark.lg { font-size: 22px; }
+    .wordmark.sm { font-size: 14px; }
+    .wordmark.light-text { color: #0F172A; }
+    .wordmark.dark-text  { color: #ffffff; }
+    .sizes { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .divider { width: 1px; height: 80px; background: #F1F5F9; }
+    .dark .divider { background: #1E293B; }
+  </style>
+</head>
+<body>
+
+<h1>ExecRadar — <span>Logo Concepts</span></h1>
+
+<div class="options">
+
+  <!-- OPTION 1: RADAR PULSE -->
+  <div class="option">
+    <div class="option-label">Option 1 — <span>Radar Pulse</span> &nbsp;·&nbsp; Concentric arcs expanding from a signal origin</div>
+    <div class="swatches">
+      <div class="swatch light">
+        <div class="swatch-label">Light</div>
+        <div class="sizes">
+          <!-- Large -->
+          <div class="logo-row">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <!-- outer arc -->
+              <path d="M6 18 A12 12 0 0 1 30 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <!-- mid arc -->
+              <path d="M10 18 A8 8 0 0 1 26 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <!-- inner arc -->
+              <path d="M14 18 A4 4 0 0 1 22 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+              <!-- center dot -->
+              <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+              <!-- signal line down -->
+              <line x1="18" y1="20.5" x2="18" y2="28" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+            </svg>
+            <span class="wordmark lg light-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <!-- Small -->
+          <div class="logo-row">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+              <path d="M6 18 A12 12 0 0 1 30 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M10 18 A8 8 0 0 1 26 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M14 18 A4 4 0 0 1 22 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+              <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+              <line x1="18" y1="20.5" x2="18" y2="28" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+            </svg>
+            <span class="wordmark sm light-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <!-- Icon only favicon -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <svg width="32" height="32" viewBox="0 0 36 36" fill="none" style="background:#EFF6FF;border-radius:8px;padding:4px">
+              <path d="M6 18 A12 12 0 0 1 30 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M10 18 A8 8 0 0 1 26 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M14 18 A4 4 0 0 1 22 18" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+              <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+              <line x1="18" y1="20.5" x2="18" y2="28" stroke="#2563EB" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+            </svg>
+            <span style="font-size:10px;color:#94A3B8;">favicon</span>
+          </div>
+        </div>
+      </div>
+      <div class="swatch dark">
+        <div class="swatch-label">Dark</div>
+        <div class="sizes">
+          <div class="logo-row">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path d="M6 18 A12 12 0 0 1 30 18" stroke="#60A5FA" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.3"/>
+              <path d="M10 18 A8 8 0 0 1 26 18" stroke="#60A5FA" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.65"/>
+              <path d="M14 18 A4 4 0 0 1 22 18" stroke="#60A5FA" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+              <circle cx="18" cy="18" r="2.5" fill="#60A5FA"/>
+              <line x1="18" y1="20.5" x2="18" y2="28" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+            </svg>
+            <span class="wordmark lg dark-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <div class="logo-row">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+              <path d="M6 18 A12 12 0 0 1 30 18" stroke="#60A5FA" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.3"/>
+              <path d="M10 18 A8 8 0 0 1 26 18" stroke="#60A5FA" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.65"/>
+              <path d="M14 18 A4 4 0 0 1 22 18" stroke="#60A5FA" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+              <circle cx="18" cy="18" r="2.5" fill="#60A5FA"/>
+              <line x1="18" y1="20.5" x2="18" y2="28" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+            </svg>
+            <span class="wordmark sm dark-text">ExecRadar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 2: PRECISION TARGET -->
+  <div class="option">
+    <div class="option-label">Option 2 — <span>Precision Target</span> &nbsp;·&nbsp; Crosshair with offset ring — targeting intelligence</div>
+    <div class="swatches">
+      <div class="swatch light">
+        <div class="swatch-label">Light</div>
+        <div class="sizes">
+          <div class="logo-row">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <!-- outer ring -->
+              <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
+              <!-- inner ring -->
+              <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
+              <!-- crosshair lines -->
+              <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <!-- center dot -->
+              <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+            </svg>
+            <span class="wordmark lg light-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <div class="logo-row">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
+              <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
+              <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+            </svg>
+            <span class="wordmark sm light-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <svg width="32" height="32" viewBox="0 0 36 36" fill="none" style="background:#EFF6FF;border-radius:8px;padding:4px">
+              <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
+              <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
+              <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+            </svg>
+            <span style="font-size:10px;color:#94A3B8;">favicon</span>
+          </div>
+        </div>
+      </div>
+      <div class="swatch dark">
+        <div class="swatch-label">Dark</div>
+        <div class="sizes">
+          <div class="logo-row">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="13" stroke="#60A5FA" stroke-width="1.8" opacity="0.3"/>
+              <circle cx="18" cy="18" r="7" stroke="#60A5FA" stroke-width="1.8"/>
+              <line x1="18" y1="3" x2="18" y2="11" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="18" y1="25" x2="18" y2="33" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="3" y1="18" x2="11" y2="18" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="25" y1="18" x2="33" y2="18" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="2.5" fill="#60A5FA"/>
+            </svg>
+            <span class="wordmark lg dark-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <div class="logo-row">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+              <circle cx="18" cy="18" r="13" stroke="#60A5FA" stroke-width="1.8" opacity="0.3"/>
+              <circle cx="18" cy="18" r="7" stroke="#60A5FA" stroke-width="1.8"/>
+              <line x1="18" y1="3" x2="18" y2="11" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="18" y1="25" x2="18" y2="33" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="3" y1="18" x2="11" y2="18" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="25" y1="18" x2="33" y2="18" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="2.5" fill="#60A5FA"/>
+            </svg>
+            <span class="wordmark sm dark-text">ExecRadar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 3: SIGNAL NODE -->
+  <div class="option">
+    <div class="option-label">Option 3 — <span>Signal Node</span> &nbsp;·&nbsp; Network pulse emanating from a single point — intel broadcasting outward</div>
+    <div class="swatches">
+      <div class="swatch light">
+        <div class="swatch-label">Light</div>
+        <div class="sizes">
+          <div class="logo-row">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <!-- signal arcs top-right -->
+              <path d="M18 18 Q24 12 30 10" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 14 26 13" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 16 22 16" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <!-- signal arcs bottom-right -->
+              <path d="M18 18 Q24 24 30 26" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 22 26 23" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 20 22 20" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <!-- center node -->
+              <circle cx="18" cy="18" r="3.5" fill="#2563EB"/>
+              <!-- left stem -->
+              <line x1="10" y1="18" x2="14.5" y2="18" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="8.5" cy="18" r="2" fill="#2563EB" opacity="0.4"/>
+            </svg>
+            <span class="wordmark lg light-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <div class="logo-row">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+              <path d="M18 18 Q24 12 30 10" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 14 26 13" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 16 22 16" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M18 18 Q24 24 30 26" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 22 26 23" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 20 22 20" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <circle cx="18" cy="18" r="3.5" fill="#2563EB"/>
+              <line x1="10" y1="18" x2="14.5" y2="18" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="8.5" cy="18" r="2" fill="#2563EB" opacity="0.4"/>
+            </svg>
+            <span class="wordmark sm light-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <svg width="32" height="32" viewBox="0 0 36 36" fill="none" style="background:#EFF6FF;border-radius:8px;padding:4px">
+              <path d="M18 18 Q24 12 30 10" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 14 26 13" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 16 22 16" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M18 18 Q24 24 30 26" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 22 26 23" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 20 22 20" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <circle cx="18" cy="18" r="3.5" fill="#2563EB"/>
+              <line x1="10" y1="18" x2="14.5" y2="18" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="8.5" cy="18" r="2" fill="#2563EB" opacity="0.4"/>
+            </svg>
+            <span style="font-size:10px;color:#94A3B8;">favicon</span>
+          </div>
+        </div>
+      </div>
+      <div class="swatch dark">
+        <div class="swatch-label">Dark</div>
+        <div class="sizes">
+          <div class="logo-row">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <path d="M18 18 Q24 12 30 10" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 14 26 13" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 16 22 16" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M18 18 Q24 24 30 26" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 22 26 23" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 20 22 20" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <circle cx="18" cy="18" r="3.5" fill="#60A5FA"/>
+              <line x1="10" y1="18" x2="14.5" y2="18" stroke="#60A5FA" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="8.5" cy="18" r="2" fill="#60A5FA" opacity="0.4"/>
+            </svg>
+            <span class="wordmark lg dark-text">ExecRadar</span>
+          </div>
+          <div class="divider"></div>
+          <div class="logo-row">
+            <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+              <path d="M18 18 Q24 12 30 10" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 14 26 13" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 16 22 16" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <path d="M18 18 Q24 24 30 26" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.25"/>
+              <path d="M18 18 Q22 22 26 23" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.55"/>
+              <path d="M18 18 Q20 20 22 20" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <circle cx="18" cy="18" r="3.5" fill="#60A5FA"/>
+              <line x1="10" y1="18" x2="14.5" y2="18" stroke="#60A5FA" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="8.5" cy="18" r="2" fill="#60A5FA" opacity="0.4"/>
+            </svg>
+            <span class="wordmark sm dark-text">ExecRadar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

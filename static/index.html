@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ExecRadar — Executive Radar</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect width='36' height='36' rx='8' fill='%23EFF6FF'/><circle cx='18' cy='18' r='13' stroke='%232563EB' stroke-width='1.8' opacity='.3'/><circle cx='18' cy='18' r='7' stroke='%232563EB' stroke-width='1.8'/><line x1='18' y1='3' x2='18' y2='11' stroke='%232563EB' stroke-width='1.8' stroke-linecap='round'/><line x1='18' y1='25' x2='18' y2='33' stroke='%232563EB' stroke-width='1.8' stroke-linecap='round'/><line x1='3' y1='18' x2='11' y2='18' stroke='%232563EB' stroke-width='1.8' stroke-linecap='round'/><line x1='25' y1='18' x2='33' y2='18' stroke='%232563EB' stroke-width='1.8' stroke-linecap='round'/><circle cx='18' cy='18' r='2.5' fill='%232563EB'/></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -67,11 +68,15 @@
 <!-- ─── App Loading ────────────────────────────────────────────────────────── -->
 <div id="app-loading" class="h-screen bg-navy-900 flex items-center justify-center">
   <div class="flex flex-col items-center gap-4">
-    <div class="w-12 h-12 rounded-2xl bg-accent-500 flex items-center justify-center">
-      <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-      </svg>
-    </div>
+    <svg width="44" height="44" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
+      <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
+      <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+    </svg>
     <div class="text-center">
       <div class="text-slate-900 font-bold text-xl">ExecRadar</div>
       <div class="text-slate-500 text-sm mt-1 flex items-center gap-2">
@@ -90,11 +95,15 @@
   <div class="w-full max-w-md">
     <div class="text-center mb-8">
       <div class="flex items-center justify-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-xl bg-accent-500 flex items-center justify-center">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-          </svg>
-        </div>
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+          <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
+          <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
+          <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+        </svg>
         <div class="text-left">
           <div class="text-slate-900 font-bold text-2xl tracking-tight">ExecRadar</div>
           <div class="text-slate-500 text-xs">Executive Radar</div>
@@ -117,11 +126,15 @@
 
     <!-- Logo -->
     <div class="px-6 py-5 border-b border-navy-700 flex items-center gap-3">
-      <div class="w-8 h-8 rounded-lg bg-accent-500 flex items-center justify-center flex-shrink-0">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-        </svg>
-      </div>
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none" class="flex-shrink-0">
+        <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
+        <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
+        <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+      </svg>
       <div class="flex-1 min-w-0">
         <div class="text-slate-900 font-bold text-base tracking-tight">ExecRadar</div>
         <div class="text-xs" style="color:#64748B">Executive Radar</div>
