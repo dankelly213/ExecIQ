@@ -10,8 +10,7 @@
       theme: {
         extend: {
           colors: {
-            navy: { 900: '#0D1F1A', 800: '#122119', 700: '#1a2e26', 600: '#1f3530' },
-            accent: { 500: '#34D399', 400: '#6EE7B7', 300: '#A7F3D0' }
+            brand: { 600: '#2563EB', 500: '#3B82F6', 100: '#DBEAFE', 50: '#EFF6FF' }
           },
           fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
         }
@@ -21,92 +20,94 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; }
-    .gradient-text {
-      background: linear-gradient(135deg, #34D399 0%, #A7F3D0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    body { font-family: 'Inter', sans-serif; background: #ffffff; color: #0F172A; }
+    .cta-btn {
+      background: #2563EB;
+      color: #ffffff;
+      transition: all .18s;
     }
-    .hero-glow {
-      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(52,211,153,0.12), transparent);
+    .cta-btn:hover {
+      background: #1D4ED8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37,99,235,0.3);
+    }
+    .outline-btn {
+      background: transparent;
+      color: #2563EB;
+      border: 1.5px solid #2563EB;
+      transition: all .18s;
+    }
+    .outline-btn:hover {
+      background: #EFF6FF;
     }
     .feature-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
+      background: #ffffff;
+      border: 1px solid #F1F5F9;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
       transition: all .2s;
     }
     .feature-card:hover {
-      background: rgba(79,142,247,0.07);
-      border-color: rgba(79,142,247,0.2);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
       transform: translateY(-2px);
     }
-    .login-btn {
-      background: #34D399;
-      color: #0D1F1A;
-      transition: all .2s;
-    }
-    .login-btn:hover {
-      background: #6EE7B7;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 25px rgba(52,211,153,0.35);
-    }
-    .mock-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+    .badge {
+      background: #EFF6FF;
+      color: #2563EB;
+      border: 1px solid #DBEAFE;
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
     }
-    .fade-up { animation: fadeUp .7s ease-out forwards; }
-    .fade-up-2 { animation: fadeUp .7s .15s ease-out both; }
-    .fade-up-3 { animation: fadeUp .7s .3s ease-out both; }
-    .fade-up-4 { animation: fadeUp .7s .45s ease-out both; }
+    .fade-up   { animation: fadeUp .6s ease-out both; }
+    .fade-up-2 { animation: fadeUp .6s .12s ease-out both; }
+    .fade-up-3 { animation: fadeUp .6s .24s ease-out both; }
+    .fade-up-4 { animation: fadeUp .6s .36s ease-out both; }
+    .tag-blue   { background:#DBEAFE; color:#1D4ED8; }
+    .tag-purple { background:#EDE9FE; color:#6D28D9; }
+    .tag-green  { background:#D1FAE5; color:#065F46; }
+    .tag-amber  { background:#FEF3C7; color:#92400E; }
   </style>
 </head>
-<body class="bg-navy-900 text-white">
+<body>
 
   <!-- Nav -->
-  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5" style="background:rgba(15,26,46,0.85);backdrop-filter:blur(12px)">
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-100">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-lg bg-accent-500 flex items-center justify-center flex-shrink-0">
-          <svg class="w-4.5 h-4.5 text-white w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
           </svg>
         </div>
-        <span class="font-bold text-lg tracking-tight">ExecRadar</span>
+        <span class="font-bold text-lg text-slate-900 tracking-tight">ExecRadar</span>
       </div>
-      <a href="/app" class="login-btn px-5 py-2 rounded-lg text-sm font-semibold text-white">
-        Login
-      </a>
+      <a href="/app" class="cta-btn px-5 py-2 rounded-lg text-sm font-semibold">Login</a>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="hero-glow min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
-    <div class="max-w-3xl mx-auto">
+  <section class="pt-32 pb-20 px-6 bg-white">
+    <div class="max-w-3xl mx-auto text-center">
 
-      <div class="fade-up inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent-500/30 bg-accent-500/10 text-accent-300 text-xs font-medium mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse"></span>
+      <div class="fade-up inline-flex items-center gap-2 px-3 py-1.5 rounded-full badge text-xs font-semibold mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
         AI-powered executive intelligence
       </div>
 
-      <h1 class="fade-up-2 text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6">
-        Cut through the noise<br/>and
-        <span class="gradient-text"> get in the room</span>
+      <h1 class="fade-up-2 text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight tracking-tight mb-6">
+        Cut through the noise<br/>and <span class="text-brand-600">get in the room</span>
       </h1>
 
-      <p class="fade-up-3 text-lg text-slate-400 leading-relaxed mb-10 max-w-xl mx-auto">
+      <p class="fade-up-3 text-lg text-slate-500 leading-relaxed mb-10 max-w-xl mx-auto">
         ExecRadar finds what your executive prospects care about — so your outreach always lands.
       </p>
 
-      <div class="fade-up-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="/app" class="login-btn px-8 py-3.5 rounded-xl text-base font-bold text-white w-full sm:w-auto">
+      <div class="fade-up-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="/app" class="cta-btn px-8 py-3.5 rounded-xl text-base font-bold w-full sm:w-auto text-center">
           Get Started →
         </a>
-        <a href="/app" class="px-8 py-3.5 rounded-xl text-base font-semibold text-slate-400 hover:text-white border border-white/10 hover:border-white/20 transition w-full sm:w-auto text-center">
+        <a href="/app" class="outline-btn px-8 py-3.5 rounded-xl text-base font-semibold w-full sm:w-auto text-center">
           Login
         </a>
       </div>
@@ -114,95 +115,139 @@
     </div>
 
     <!-- Mock profile card -->
-    <div class="fade-up-4 mt-20 w-full max-w-2xl mx-auto mock-card rounded-2xl p-6 text-left">
-      <div class="flex items-start gap-4 mb-5">
-        <div class="w-12 h-12 rounded-full bg-accent-500 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">SJ</div>
-        <div>
-          <div class="font-bold text-white text-lg">Sarah Johnson</div>
-          <div class="text-slate-400 text-sm">Chief Revenue Officer · Acme Corp</div>
-          <span class="inline-flex items-center gap-1 mt-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-900/40 text-green-400 border border-green-800/40">✓ High confidence</span>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-3 mb-5">
-        <div class="bg-white/5 rounded-xl p-3">
-          <div class="text-xs text-slate-500 mb-2">🏆 Sports & Teams</div>
-          <div class="flex flex-wrap gap-1">
-            <span class="px-2 py-0.5 rounded-full text-xs bg-blue-900/40 text-blue-300">Boston Celtics</span>
-            <span class="px-2 py-0.5 rounded-full text-xs bg-blue-900/40 text-blue-300">New England Patriots</span>
+    <div class="fade-up-4 mt-20 max-w-2xl mx-auto rounded-2xl p-6" style="background:#F8FAFC; border:1px solid #E2E8F0;">
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
+
+        <!-- Profile header -->
+        <div class="flex items-start gap-4 mb-5">
+          <div class="w-12 h-12 rounded-full bg-brand-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">SJ</div>
+          <div>
+            <div class="font-bold text-slate-900 text-lg">Sarah Johnson</div>
+            <div class="text-slate-500 text-sm">Chief Revenue Officer · Acme Corp</div>
+            <span class="inline-flex items-center gap-1 mt-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-50 text-green-700 border border-green-100">✓ High confidence</span>
           </div>
         </div>
-        <div class="bg-white/5 rounded-xl p-3">
-          <div class="text-xs text-slate-500 mb-2">🎯 Hobbies</div>
-          <div class="flex flex-wrap gap-1">
-            <span class="px-2 py-0.5 rounded-full text-xs bg-purple-900/40 text-purple-300">Golf</span>
-            <span class="px-2 py-0.5 rounded-full text-xs bg-purple-900/40 text-purple-300">Marathon running</span>
+
+        <!-- Tags -->
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div class="rounded-lg p-3" style="background:#F8FAFC; border:1px solid #F1F5F9;">
+            <div class="text-xs text-slate-400 font-medium mb-2">🏆 Sports & Teams</div>
+            <div class="flex flex-wrap gap-1">
+              <span class="px-2 py-0.5 rounded-full text-xs font-medium tag-blue">Boston Celtics</span>
+              <span class="px-2 py-0.5 rounded-full text-xs font-medium tag-blue">New England Patriots</span>
+            </div>
+          </div>
+          <div class="rounded-lg p-3" style="background:#F8FAFC; border:1px solid #F1F5F9;">
+            <div class="text-xs text-slate-400 font-medium mb-2">🎯 Hobbies</div>
+            <div class="flex flex-wrap gap-1">
+              <span class="px-2 py-0.5 rounded-full text-xs font-medium tag-purple">Golf</span>
+              <span class="px-2 py-0.5 rounded-full text-xs font-medium tag-purple">Marathon running</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="bg-white/5 rounded-xl p-4 border border-white/5 mb-3">
-        <div class="text-xs text-slate-500 mb-2">⚡ Top Outreach Angle</div>
-        <div class="font-semibold text-white text-sm mb-1">Celtics / Knicks game invite</div>
-        <div class="text-slate-400 text-xs leading-relaxed">Sarah has mentioned the Celtics in three LinkedIn posts and attended a game in January. Tickets are a natural opener.</div>
-      </div>
-      <div class="bg-indigo-950/40 rounded-xl p-4 border border-indigo-800/20">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-base">📌</span>
-          <span class="text-xs text-indigo-300 font-semibold uppercase tracking-wider">Business Initiative</span>
-          <span class="ml-auto text-xs text-slate-500 bg-slate-800/60 px-2 py-0.5 rounded-full">March 2026</span>
+
+        <!-- Outreach angle -->
+        <div class="rounded-lg p-4 mb-3" style="background:#F8FAFC; border:1px solid #F1F5F9;">
+          <div class="text-xs text-slate-400 font-medium mb-2">⚡ Top Outreach Angle</div>
+          <div class="font-semibold text-slate-800 text-sm mb-1">Celtics / Knicks game invite</div>
+          <div class="text-slate-500 text-xs leading-relaxed">Sarah has mentioned the Celtics in three LinkedIn posts and attended a game in January. Tickets are a natural opener.</div>
         </div>
-        <div class="font-semibold text-white text-sm mb-1.5">Revenue efficiency as a board-level priority</div>
-        <p class="text-slate-400 text-xs leading-relaxed italic">"The days of growth at all costs are over. We're focused on doing more with less — and AI is the biggest lever we have."</p>
-        <div class="text-xs text-slate-500 mt-2">Forbes interview · May 2026</div>
+
+        <!-- Business initiative -->
+        <div class="rounded-lg p-4" style="background:#EFF6FF; border:1px solid #DBEAFE;">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-sm">📌</span>
+            <span class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Business Initiative</span>
+            <span class="ml-auto text-xs text-slate-400 bg-white px-2 py-0.5 rounded-full border border-slate-100">March 2026</span>
+          </div>
+          <div class="font-semibold text-slate-800 text-sm mb-1.5">Revenue efficiency as a board-level priority</div>
+          <p class="text-slate-500 text-xs leading-relaxed italic">"The days of growth at all costs are over. We're focused on doing more with less — and AI is the biggest lever we have."</p>
+          <div class="text-xs text-slate-400 mt-2">Forbes interview · May 2026</div>
+        </div>
+
       </div>
     </div>
-
   </section>
 
+  <!-- Social proof strip -->
+  <div class="border-y border-slate-100 bg-slate-50 py-5 px-6">
+    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-8 text-sm text-slate-400 font-medium">
+      <span>✦ Built for enterprise B2B sales teams</span>
+      <span>✦ Powered by Claude AI + live web search</span>
+      <span>✦ Sourced &amp; cited intelligence</span>
+      <span>✦ Saves to your profile library</span>
+    </div>
+  </div>
+
   <!-- Features -->
-  <section class="py-28 px-6">
+  <section class="py-24 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
 
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Book more meetings by <span class="gradient-text">being relevant</span></h2>
-        <p class="text-slate-400 max-w-lg mx-auto">Your Decision Maker's inbox is flooded with emails. Differentiate yourself with personalized outreach at your fingertips.</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Book more meetings by <span class="text-brand-600">being relevant</span></h2>
+        <p class="text-slate-500 max-w-lg mx-auto leading-relaxed">Your Decision Maker's inbox is flooded with emails. Differentiate yourself with personalised outreach at your fingertips.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
         <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-blue-900/40 flex items-center justify-center mb-4 text-xl">🔍</div>
-          <h3 class="font-semibold text-white mb-2">Deep executive research</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">AI scans interviews, social media, charity boards, alumni networks, and press coverage to build a complete personal interest profile.</p>
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-slate-900 mb-2">Deep executive research</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">AI scans interviews, social media, charity boards, alumni networks, and press coverage to build a complete personal interest profile.</p>
         </div>
 
         <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-indigo-900/40 flex items-center justify-center mb-4 text-xl">📌</div>
-          <h3 class="font-semibold text-white mb-2">Business initiative tracking</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Surfaces quotes and priorities from the last 12 months — podcasts, LinkedIn posts, keynotes — so you reference what's top of mind right now.</p>
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-slate-900 mb-2">Business initiative tracking</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Surfaces quotes and priorities from the last 12 months — podcasts, LinkedIn posts, keynotes — so you reference what's top of mind right now.</p>
         </div>
 
         <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-purple-900/40 flex items-center justify-center mb-4 text-xl">✉️</div>
-          <h3 class="font-semibold text-white mb-2">AI-drafted outreach emails</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Ask the AI to draft a personalised email in seconds — sports invites, business interview hooks, or shared interest openers. You just fill in your value add.</p>
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-slate-900 mb-2">AI-drafted outreach emails</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Ask the AI to draft a personalised email in seconds — sports invites, business interview hooks, or shared interest openers. You just fill in your value add.</p>
         </div>
 
         <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-green-900/40 flex items-center justify-center mb-4 text-xl">💬</div>
-          <h3 class="font-semibold text-white mb-2">Conversational AI assistant</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Ask anything — conversation starters, what to avoid, key talking points. The AI knows the profile and answers instantly.</p>
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-slate-900 mb-2">Conversational AI assistant</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Ask anything — conversation starters, what to avoid, key talking points. The AI knows the profile and answers instantly.</p>
         </div>
 
         <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-amber-900/40 flex items-center justify-center mb-4 text-xl">🏟️</div>
-          <h3 class="font-semibold text-white mb-2">Sports & event intelligence</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Know exactly which teams your prospect follows. Draft a game invite with one click — the best door-opener in B2B sales.</p>
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-slate-900 mb-2">Sports & event intelligence</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Know exactly which teams your prospect follows. Draft a game invite with one click — the best door-opener in B2B sales.</p>
         </div>
 
         <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-rose-900/40 flex items-center justify-center mb-4 text-xl">💾</div>
-          <h3 class="font-semibold text-white mb-2">Saved profile library</h3>
-          <p class="text-slate-400 text-sm leading-relaxed">Every profile you research is saved to your account. Revisit and pick up where you left off before any call or meeting.</p>
+          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-slate-900 mb-2">Saved profile library</h3>
+          <p class="text-slate-500 text-sm leading-relaxed">Every profile you research is saved to your account. Revisit and pick up where you left off before any call or meeting.</p>
         </div>
 
       </div>
@@ -210,12 +255,12 @@
   </section>
 
   <!-- CTA -->
-  <section class="py-20 px-6">
+  <section class="py-20 px-6" style="background:#F8FAFC;">
     <div class="max-w-2xl mx-auto text-center">
-      <div class="mock-card rounded-3xl p-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to get more executive engagement?</h2>
-        <p class="text-slate-400 mb-8">Start researching executives in under 60 seconds.</p>
-        <a href="/app" class="login-btn inline-block px-10 py-4 rounded-xl text-base font-bold text-white">
+      <div class="bg-white rounded-3xl p-12 shadow-sm border border-slate-100">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Ready to get more<br/>executive engagement?</h2>
+        <p class="text-slate-500 mb-8 leading-relaxed">Start researching executives in under 60 seconds.</p>
+        <a href="/app" class="cta-btn inline-block px-10 py-4 rounded-xl text-base font-bold">
           Book a Demo →
         </a>
       </div>
@@ -223,16 +268,18 @@
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-white/5 py-8 px-6 text-center">
-    <div class="flex items-center justify-center gap-2 mb-2">
-      <div class="w-6 h-6 rounded-md bg-accent-500 flex items-center justify-center">
-        <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-        </svg>
+  <footer class="bg-white border-t border-slate-100 py-8 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-brand-600 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+        <span class="font-bold text-sm text-slate-900">ExecRadar</span>
       </div>
-      <span class="font-bold text-sm">ExecRadar</span>
+      <p class="text-slate-400 text-xs">Powered by Claude AI + Web Search</p>
     </div>
-    <p class="text-slate-600 text-xs">Powered by Claude AI + Web Search</p>
   </footer>
 
 </body>
