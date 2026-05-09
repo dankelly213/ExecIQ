@@ -10,8 +10,8 @@
       theme: {
         extend: {
           colors: {
-            navy: { 900: '#0f1a2e', 800: '#162035', 700: '#1e2d47', 600: '#243452' },
-            accent: { 500: '#4f8ef7', 400: '#6ba3fa', 300: '#93bbfb' }
+            navy: { 900: '#0D1F1A', 800: '#122119', 700: '#1a2e26', 600: '#1f3530' },
+            accent: { 500: '#34D399', 400: '#6EE7B7', 300: '#A7F3D0' }
           },
           fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
         }
@@ -23,13 +23,13 @@
     * { box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; }
     .gradient-text {
-      background: linear-gradient(135deg, #4f8ef7 0%, #93bbfb 100%);
+      background: linear-gradient(135deg, #34D399 0%, #A7F3D0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hero-glow {
-      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(79,142,247,0.15), transparent);
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(52,211,153,0.12), transparent);
     }
     .feature-card {
       background: rgba(255,255,255,0.03);
@@ -42,13 +42,14 @@
       transform: translateY(-2px);
     }
     .login-btn {
-      background: #4f8ef7;
+      background: #34D399;
+      color: #0D1F1A;
       transition: all .2s;
     }
     .login-btn:hover {
-      background: #6ba3fa;
+      background: #6EE7B7;
       transform: translateY(-1px);
-      box-shadow: 0 8px 25px rgba(79,142,247,0.35);
+      box-shadow: 0 8px 25px rgba(52,211,153,0.35);
     }
     .mock-card {
       background: rgba(255,255,255,0.04);
