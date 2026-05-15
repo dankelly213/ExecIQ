@@ -5,291 +5,1009 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ExecRadar — Executive Outreach Intelligence</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect width='36' height='36' rx='8' fill='%23EFF6FF'/><circle cx='18' cy='18' r='13' stroke='%232563EB' stroke-width='1.8' opacity='.3'/><circle cx='18' cy='18' r='7' stroke='%232563EB' stroke-width='1.8'/><line x1='18' y1='3' x2='18' y2='11' stroke='%232563EB' stroke-width='1.8' stroke-linecap='round'/><line x1='18' y1='25' x2='18' y2='33' stroke='%232563EB' stroke-width='1.8' stroke-linecap='round'/><line x1='3' y1='18' x2='11' y2='18' stroke='%232563EB' stroke-width='1.8' stroke-linecap='round'/><line x1='25' y1='18' x2='33' y2='18' stroke='%232563EB' stroke-width='1.8' stroke-linecap='round'/><circle cx='18' cy='18' r='2.5' fill='%232563EB'/></svg>">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { 600: '#2563EB', 500: '#3B82F6', 100: '#DBEAFE', 50: '#EFF6FF' }
-          },
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
-        }
-      }
-    }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #ffffff; color: #0F172A; }
-    .cta-btn {
-      background: #2563EB;
-      color: #ffffff;
-      transition: all .18s;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FFFFFF;
+      --headline: #0A0A0A;
+      --body: #6B7280;
+      --subtle: #9CA3AF;
+      --border: #E5E7EB;
+      --surface: #F9FAFB;
+      --blue: #2563EB;
+      --blue-dark: #1D4ED8;
     }
-    .cta-btn:hover {
-      background: #1D4ED8;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(37,99,235,0.3);
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
     }
-    .outline-btn {
-      background: transparent;
-      color: #2563EB;
-      border: 1.5px solid #2563EB;
-      transition: all .18s;
+
+    h1, h2, h3, h4 {
+      font-family: 'Geist', 'Inter', system-ui, sans-serif;
+      color: var(--headline);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
     }
-    .outline-btn:hover {
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo-text {
+      font-family: 'Geist', 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--headline);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--body);
+      transition: color 0.15s;
+    }
+    .nav-link:hover { color: var(--headline); }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--headline);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 6px;
+      transition: background 0.15s, opacity 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: #1a1a1a; }
+
+    .btn-blue {
+      background: var(--blue);
+    }
+    .btn-blue:hover { background: var(--blue-dark); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 140px 32px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px 12px 4px 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--body);
+      margin-bottom: 28px;
+    }
+
+    .hero-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .hero-headline {
+      font-size: clamp(44px, 5vw, 68px);
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--body);
+      margin-bottom: 40px;
+      max-width: 420px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-lg {
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+    }
+
+    .hero-demo-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--body);
+      transition: color 0.15s;
+    }
+    .hero-demo-link:hover { color: var(--headline); }
+
+    /* ── Product mockup ── */
+    .mockup-wrap {
+      position: relative;
+    }
+
+    .mockup-frame {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .mockup-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mockup-dots {
+      display: flex;
+      gap: 5px;
+    }
+    .mockup-dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .mockup-url {
+      flex: 1;
+      background: var(--border);
+      border-radius: 4px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 10px;
+      color: var(--subtle);
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+    .mockup-app {
+      display: flex;
+      height: 360px;
+    }
+
+    /* Mock sidebar */
+    .mock-sidebar {
+      width: 180px;
+      background: #fff;
+      border-right: 1px solid var(--border);
+      padding: 14px 12px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mock-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 4px 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 6px;
+    }
+
+    .mock-logo-text {
+      font-family: 'Geist', 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--headline);
+      letter-spacing: -0.02em;
+    }
+
+    .mock-search {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 10px;
+      color: var(--subtle);
+      margin-bottom: 10px;
+    }
+
+    .mock-section-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0 4px;
+      margin-bottom: 2px;
+    }
+
+    .mock-profile-item {
+      padding: 7px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      color: var(--body);
+      cursor: pointer;
+    }
+
+    .mock-profile-item.active {
       background: #EFF6FF;
+      color: var(--blue);
+      font-weight: 600;
+      border-left: 2px solid var(--blue);
     }
-    .feature-card {
-      background: #ffffff;
-      border: 1px solid #F1F5F9;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      transition: all .2s;
+
+    .mock-profile-item .mock-sub {
+      font-size: 9px;
+      color: var(--subtle);
+      margin-top: 1px;
     }
-    .feature-card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-      transform: translateY(-2px);
+
+    /* Mock main */
+    .mock-main {
+      flex: 1;
+      padding: 16px;
+      overflow: hidden;
+      background: var(--surface);
     }
-    .badge {
-      background: #EFF6FF;
-      color: #2563EB;
-      border: 1px solid #DBEAFE;
+
+    .mock-exec-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
     }
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(20px); }
-      to   { opacity:1; transform:translateY(0); }
+
+    .mock-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
-    .fade-up   { animation: fadeUp .6s ease-out both; }
-    .fade-up-2 { animation: fadeUp .6s .12s ease-out both; }
-    .fade-up-3 { animation: fadeUp .6s .24s ease-out both; }
-    .fade-up-4 { animation: fadeUp .6s .36s ease-out both; }
-    .tag-blue   { background:#DBEAFE; color:#1D4ED8; }
-    .tag-purple { background:#EDE9FE; color:#6D28D9; }
-    .tag-green  { background:#D1FAE5; color:#065F46; }
-    .tag-amber  { background:#FEF3C7; color:#92400E; }
+
+    .mock-exec-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--headline);
+      letter-spacing: -0.01em;
+    }
+    .mock-exec-title { font-size: 10px; color: var(--body); margin-top: 1px; }
+    .mock-confidence {
+      margin-left: auto;
+      font-size: 9px;
+      font-weight: 600;
+      color: #059669;
+      background: #D1FAE5;
+      border-radius: 100px;
+      padding: 2px 7px;
+    }
+
+    .mock-cards-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .mock-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+    }
+
+    .mock-card-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .mock-tag {
+      display: inline-flex;
+      font-size: 9px;
+      font-weight: 500;
+      background: #DBEAFE;
+      color: #1D4ED8;
+      border-radius: 100px;
+      padding: 2px 7px;
+      margin: 1px;
+    }
+
+    .mock-tag.purple { background: #EDE9FE; color: #6D28D9; }
+
+    .mock-initiative {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+    }
+
+    .mock-initiative-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .mock-initiative-text {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--headline);
+      margin-bottom: 3px;
+    }
+
+    .mock-initiative-quote {
+      font-size: 9px;
+      color: var(--body);
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    /* Mock Ross panel */
+    .mock-ross {
+      width: 160px;
+      border-left: 1px solid var(--border);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .mock-ross-header {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .mock-ross-avatar {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mock-ross-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--headline);
+    }
+
+    .mock-ross-messages {
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mock-bubble {
+      font-size: 9px;
+      line-height: 1.4;
+      padding: 7px 9px;
+      border-radius: 10px;
+      max-width: 100%;
+    }
+
+    .mock-bubble.ross {
+      background: var(--surface);
+      color: var(--headline);
+      border-radius: 10px 10px 10px 3px;
+    }
+
+    .mock-bubble.user {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 10px 10px 3px 10px;
+      align-self: flex-end;
+    }
+
+    .mock-ross-input {
+      margin: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 9px;
+      color: var(--subtle);
+    }
+
+    /* ── Divider strip ── */
+    .strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+    }
+
+    .strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .strip-item {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--subtle);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .strip-item::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    /* ── Features ── */
+    .section {
+      padding: 100px 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .section-headline {
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 800;
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--body);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 64px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .feature-item {
+      background: #fff;
+      padding: 32px 28px;
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 20px;
+      color: var(--headline);
+    }
+
+    .feature-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--headline);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.65;
+    }
+
+    /* ── How it works ── */
+    .how-bg {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .step-num {
+      font-family: 'Geist', 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--headline);
+      margin-bottom: 10px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.65;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--headline);
+      padding: 100px 32px;
+    }
+
+    .cta-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-headline {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .cta-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .cta-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--headline);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 13px 26px;
+      border-radius: 8px;
+      transition: opacity 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-white:hover { opacity: 0.9; }
+
+    .cta-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.15s;
+    }
+    .cta-link:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── Footer ── */
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 32px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-logo-text {
+      font-family: 'Geist', 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--headline);
+      letter-spacing: -0.02em;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--subtle);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .mockup-wrap { display: none; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
+      .strip-inner { gap: 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 120px 24px 60px; }
+      .section { padding: 64px 24px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-cta-row { flex-direction: column; align-items: flex-start; }
+      .nav-inner { padding: 0 20px; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .cta-section { padding: 72px 24px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-100">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
-          <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
-          <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
-          <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
-          <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
-          <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
-          <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
-          <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
-        </svg>
-        <span class="font-bold text-lg text-slate-900 tracking-tight">ExecRadar</span>
-      </div>
-      <a href="/app" class="cta-btn px-5 py-2 rounded-lg text-sm font-semibold">Login</a>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <section class="pt-32 pb-20 px-6 bg-white">
-    <div class="max-w-3xl mx-auto text-center">
-
-      <div class="fade-up inline-flex items-center gap-2 px-3 py-1.5 rounded-full badge text-xs font-semibold mb-8">
-        <span class="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
-        AI-powered executive intelligence
-      </div>
-
-      <h1 class="fade-up-2 text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight tracking-tight mb-6">
-        Cut through the noise<br/>and <span class="text-brand-600">get in the room</span>
-      </h1>
-
-      <p class="fade-up-3 text-lg text-slate-500 leading-relaxed mb-10 max-w-xl mx-auto">
-        ExecRadar finds what your executive prospects care about — so your outreach always lands.
-      </p>
-
-      <div class="fade-up-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="/app" class="cta-btn px-8 py-3.5 rounded-xl text-base font-bold w-full sm:w-auto text-center">
-          Get Started →
-        </a>
-        <a href="/app" class="outline-btn px-8 py-3.5 rounded-xl text-base font-semibold w-full sm:w-auto text-center">
-          Login
-        </a>
-      </div>
-
-    </div>
-
-    <!-- Mock profile card -->
-    <div class="fade-up-4 mt-20 max-w-2xl mx-auto rounded-2xl p-6" style="background:#F8FAFC; border:1px solid #E2E8F0;">
-      <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100">
-
-        <!-- Profile header -->
-        <div class="flex items-start gap-4 mb-5">
-          <div class="w-12 h-12 rounded-full bg-brand-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">SJ</div>
-          <div>
-            <div class="font-bold text-slate-900 text-lg">Sarah Johnson</div>
-            <div class="text-slate-500 text-sm">Chief Revenue Officer · Acme Corp</div>
-            <span class="inline-flex items-center gap-1 mt-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-50 text-green-700 border border-green-100">✓ High confidence</span>
-          </div>
-        </div>
-
-        <!-- Tags -->
-        <div class="grid grid-cols-2 gap-3 mb-4">
-          <div class="rounded-lg p-3" style="background:#F8FAFC; border:1px solid #F1F5F9;">
-            <div class="text-xs text-slate-400 font-medium mb-2">🏆 Sports & Teams</div>
-            <div class="flex flex-wrap gap-1">
-              <span class="px-2 py-0.5 rounded-full text-xs font-medium tag-blue">Boston Celtics</span>
-              <span class="px-2 py-0.5 rounded-full text-xs font-medium tag-blue">New England Patriots</span>
-            </div>
-          </div>
-          <div class="rounded-lg p-3" style="background:#F8FAFC; border:1px solid #F1F5F9;">
-            <div class="text-xs text-slate-400 font-medium mb-2">🎯 Hobbies</div>
-            <div class="flex flex-wrap gap-1">
-              <span class="px-2 py-0.5 rounded-full text-xs font-medium tag-purple">Golf</span>
-              <span class="px-2 py-0.5 rounded-full text-xs font-medium tag-purple">Marathon running</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Outreach angle -->
-        <div class="rounded-lg p-4 mb-3" style="background:#F8FAFC; border:1px solid #F1F5F9;">
-          <div class="text-xs text-slate-400 font-medium mb-2">⚡ Top Outreach Angle</div>
-          <div class="font-semibold text-slate-800 text-sm mb-1">Celtics / Knicks game invite</div>
-          <div class="text-slate-500 text-xs leading-relaxed">Sarah has mentioned the Celtics in three LinkedIn posts and attended a game in January. Tickets are a natural opener.</div>
-        </div>
-
-        <!-- Business initiative -->
-        <div class="rounded-lg p-4" style="background:#EFF6FF; border:1px solid #DBEAFE;">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-sm">📌</span>
-            <span class="text-xs text-brand-600 font-semibold uppercase tracking-wider">Business Initiative</span>
-            <span class="ml-auto text-xs text-slate-400 bg-white px-2 py-0.5 rounded-full border border-slate-100">March 2026</span>
-          </div>
-          <div class="font-semibold text-slate-800 text-sm mb-1.5">Revenue efficiency as a board-level priority</div>
-          <p class="text-slate-500 text-xs leading-relaxed italic">"The days of growth at all costs are over. We're focused on doing more with less — and AI is the biggest lever we have."</p>
-          <div class="text-xs text-slate-400 mt-2">Forbes interview · May 2026</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Social proof strip -->
-  <div class="border-y border-slate-100 bg-slate-50 py-5 px-6">
-    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-center gap-8 text-sm text-slate-400 font-medium">
-      <span>✦ Built for enterprise B2B sales teams</span>
-      <span>✦ Powered by Claude AI + live web search</span>
-      <span>✦ Sourced &amp; cited intelligence</span>
-      <span>✦ Saves to your profile library</span>
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <svg width="22" height="22" viewBox="0 0 36 36" fill="none">
+        <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
+        <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
+        <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+      </svg>
+      <span class="nav-logo-text">ExecRadar</span>
+    </a>
+    <div class="nav-actions">
+      <a href="https://calendly.com/dankelly213/30min" target="_blank" rel="noopener" class="nav-link">Book a demo</a>
+      <a href="/app" class="btn-primary">Log in</a>
     </div>
   </div>
+</nav>
 
-  <!-- Features -->
-  <section class="py-24 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
+<!-- Hero -->
+<section>
+  <div class="hero">
+    <div class="hero-grid">
 
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Book more meetings by <span class="text-brand-600">being relevant</span></h2>
-        <p class="text-slate-500 max-w-lg mx-auto leading-relaxed">Your Decision Maker's inbox is flooded with emails. Differentiate yourself with personalised outreach at your fingertips.</p>
+      <!-- Left: copy -->
+      <div>
+        <div class="hero-pill">
+          <span class="hero-pill-dot"></span>
+          B2B executive intelligence
+        </div>
+
+        <h1 class="hero-headline">Know your exec<br/>before you write<br/>the email.</h1>
+
+        <p class="hero-sub">ExecRadar researches executive prospects in seconds — surfacing interests, initiatives, and outreach angles so every email you send actually lands.</p>
+
+        <div class="hero-cta-row">
+          <a href="/app" class="btn-primary btn-blue btn-lg">Get started free</a>
+          <a href="https://calendly.com/dankelly213/30min" target="_blank" rel="noopener" class="hero-demo-link">Book a demo →</a>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-
-        <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
+      <!-- Right: product mockup -->
+      <div class="mockup-wrap">
+        <div class="mockup-frame">
+          <!-- Browser bar -->
+          <div class="mockup-bar">
+            <div class="mockup-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="mockup-url">execradar.co/app</div>
           </div>
-          <h3 class="font-semibold text-slate-900 mb-2">Deep executive research</h3>
-          <p class="text-slate-500 text-sm leading-relaxed">AI scans interviews, social media, charity boards, alumni networks, and press coverage to build a complete personal interest profile.</p>
-        </div>
 
-        <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-            </svg>
+          <!-- App UI -->
+          <div class="mockup-app">
+
+            <!-- Sidebar -->
+            <div class="mock-sidebar">
+              <div class="mock-logo-row">
+                <svg width="14" height="14" viewBox="0 0 36 36" fill="none">
+                  <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="2.5" opacity="0.3"/>
+                  <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="2.5"/>
+                  <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+                </svg>
+                <span class="mock-logo-text">ExecRadar</span>
+              </div>
+              <div class="mock-search">Search executives…</div>
+              <div class="mock-section-label">Saved Profiles</div>
+              <div class="mock-profile-item active">
+                Sarah Johnson
+                <div class="mock-sub">CRO · Acme Corp</div>
+              </div>
+              <div class="mock-profile-item">
+                Michael Chen
+                <div class="mock-sub">CEO · Vertex AI</div>
+              </div>
+              <div class="mock-profile-item">
+                Lisa Park
+                <div class="mock-sub">CFO · Meridian</div>
+              </div>
+            </div>
+
+            <!-- Main content -->
+            <div class="mock-main">
+              <!-- Exec header -->
+              <div class="mock-exec-header">
+                <div class="mock-avatar">SJ</div>
+                <div>
+                  <div class="mock-exec-name">Sarah Johnson</div>
+                  <div class="mock-exec-title">Chief Revenue Officer · Acme Corp</div>
+                </div>
+                <div class="mock-confidence">High confidence</div>
+              </div>
+
+              <!-- Cards -->
+              <div class="mock-cards-row">
+                <div class="mock-card">
+                  <div class="mock-card-label">Sports &amp; Teams</div>
+                  <span class="mock-tag">Boston Celtics</span>
+                  <span class="mock-tag">Patriots</span>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-card-label">Hobbies</div>
+                  <span class="mock-tag purple">Golf</span>
+                  <span class="mock-tag purple">Running</span>
+                </div>
+              </div>
+
+              <!-- Business initiative -->
+              <div class="mock-initiative">
+                <div class="mock-initiative-label">📌 Business Initiative · May 2026</div>
+                <div class="mock-initiative-text">Revenue efficiency as a board-level priority</div>
+                <div class="mock-initiative-quote">"The days of growth at all costs are over. We're focused on doing more with less — AI is the biggest lever we have."</div>
+              </div>
+            </div>
+
+            <!-- Ross panel -->
+            <div class="mock-ross">
+              <div class="mock-ross-header">
+                <div class="mock-ross-avatar">R</div>
+                <div class="mock-ross-name">Ross</div>
+              </div>
+              <div class="mock-ross-messages">
+                <div class="mock-bubble ross">I've reviewed the profile. What do you want to know about Sarah?</div>
+                <div class="mock-bubble user">Draft an email</div>
+                <div class="mock-bubble ross">Based on her Celtics posts — here's a game invite that'll get a reply…</div>
+              </div>
+              <div class="mock-ross-input">Ask Ross anything…</div>
+            </div>
+
           </div>
-          <h3 class="font-semibold text-slate-900 mb-2">Business initiative tracking</h3>
-          <p class="text-slate-500 text-sm leading-relaxed">Surfaces quotes and priorities from the last 12 months — podcasts, LinkedIn posts, keynotes — so you reference what's top of mind right now.</p>
         </div>
-
-        <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-slate-900 mb-2">AI-drafted outreach emails</h3>
-          <p class="text-slate-500 text-sm leading-relaxed">Ask the AI to draft a personalised email in seconds — sports invites, business interview hooks, or shared interest openers. You just fill in your value add.</p>
-        </div>
-
-        <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-slate-900 mb-2">Conversational AI assistant</h3>
-          <p class="text-slate-500 text-sm leading-relaxed">Ask anything — conversation starters, what to avoid, key talking points. The AI knows the profile and answers instantly.</p>
-        </div>
-
-        <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-slate-900 mb-2">Sports & event intelligence</h3>
-          <p class="text-slate-500 text-sm leading-relaxed">Know exactly which teams your prospect follows. Draft a game invite with one click — the best door-opener in B2B sales.</p>
-        </div>
-
-        <div class="feature-card rounded-2xl p-6">
-          <div class="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
-            </svg>
-          </div>
-          <h3 class="font-semibold text-slate-900 mb-2">Saved profile library</h3>
-          <p class="text-slate-500 text-sm leading-relaxed">Every profile you research is saved to your account. Revisit and pick up where you left off before any call or meeting.</p>
-        </div>
-
       </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CTA -->
-  <section class="py-20 px-6" style="background:#F8FAFC;">
-    <div class="max-w-2xl mx-auto text-center">
-      <div class="bg-white rounded-3xl p-12 shadow-sm border border-slate-100">
-        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Ready to get more<br/>executive engagement?</h2>
-        <p class="text-slate-500 mb-8 leading-relaxed">Start researching executives in under 60 seconds.</p>
-        <a href="https://calendly.com/dankelly213/30min" target="_blank" rel="noopener noreferrer" class="cta-btn inline-block px-10 py-4 rounded-xl text-base font-bold">
-          Book a Demo →
-        </a>
-      </div>
-    </div>
-  </section>
+<!-- Strip -->
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-item">Built for enterprise B2B sales teams</span>
+    <span class="strip-item">Powered by Claude AI + live web search</span>
+    <span class="strip-item">Sourced &amp; cited intelligence</span>
+    <span class="strip-item">Saves to your profile library</span>
+  </div>
+</div>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t border-slate-100 py-8 px-6">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <svg width="20" height="20" viewBox="0 0 36 36" fill="none">
-          <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
-          <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
-          <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
-          <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
-          <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
-          <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
-          <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+<!-- Features -->
+<section>
+  <div class="section">
+    <div class="section-label">Features</div>
+    <h2 class="section-headline">Everything you need to get in the room.</h2>
+    <p class="section-sub">Most outreach fails because it's generic. ExecRadar gives you the specific, timely intelligence to be relevant from the first word.</p>
+
+    <div class="features-grid">
+
+      <div class="feature-item">
+        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
         </svg>
-        <span class="font-bold text-sm text-slate-900">ExecRadar</span>
+        <div class="feature-title">Deep executive research</div>
+        <p class="feature-desc">Scans interviews, social media, charity boards, alumni networks, and press coverage to build a complete personal interest profile in seconds.</p>
       </div>
-      <p class="text-slate-400 text-xs">Powered by Claude AI + Web Search</p>
+
+      <div class="feature-item">
+        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <div class="feature-title">Business initiative tracking</div>
+        <p class="feature-desc">Surfaces quotes and priorities from the last 12 months — podcasts, LinkedIn posts, keynotes — so you reference what's top of mind right now.</p>
+      </div>
+
+      <div class="feature-item">
+        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        <div class="feature-title">AI-drafted outreach emails</div>
+        <p class="feature-desc">Ross drafts a personalised email in seconds — sports invite, business hook, or shared interest opener. You fill in the value prop. Done.</p>
+      </div>
+
+      <div class="feature-item">
+        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+        <div class="feature-title">Ross — your AI intel assistant</div>
+        <p class="feature-desc">Ask anything. Conversation starters, what to avoid, key talking points. Ross has already read the profile and answers instantly.</p>
+      </div>
+
+      <div class="feature-item">
+        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+        </svg>
+        <div class="feature-title">Sports &amp; event intelligence</div>
+        <p class="feature-desc">Know exactly which teams your prospect follows. Draft a game invite with one click — still the best door-opener in enterprise sales.</p>
+      </div>
+
+      <div class="feature-item">
+        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+        </svg>
+        <div class="feature-title">Saved profile library</div>
+        <p class="feature-desc">Every profile you research is saved to your account. Revisit before any call or meeting and pick up exactly where you left off.</p>
+      </div>
+
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- How it works -->
+<div class="how-bg">
+  <div class="section">
+    <div class="section-label">How it works</div>
+    <h2 class="section-headline">Three steps to a meeting.</h2>
+    <p class="section-sub">No setup. No integrations. Just search and send.</p>
+
+    <div class="steps-grid">
+      <div>
+        <div class="step-num">01</div>
+        <div class="step-title">Search any executive</div>
+        <p class="step-desc">Enter a name and company. ExecRadar runs live web research across interviews, social profiles, news, and public records — returning a complete intelligence profile in under 30 seconds.</p>
+      </div>
+      <div>
+        <div class="step-num">02</div>
+        <div class="step-title">Review their profile</div>
+        <p class="step-desc">See their sports affiliations, hobbies, causes, alma mater, and the key business initiatives they're publicly prioritising right now — with sources cited.</p>
+      </div>
+      <div>
+        <div class="step-num">03</div>
+        <div class="step-title">Send with Ross</div>
+        <p class="step-desc">Ask Ross to draft an email using the best angle from the profile. You add your value proposition and hit send. The whole process takes under two minutes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-headline">Ready to get more<br/>executives in the room?</h2>
+    <p class="cta-sub">Start researching your first executive in under 60 seconds. No credit card required.</p>
+    <div class="cta-actions">
+      <a href="/app" class="btn-white">Get started free</a>
+      <a href="https://calendly.com/dankelly213/30min" target="_blank" rel="noopener" class="cta-link">Book a demo →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg width="18" height="18" viewBox="0 0 36 36" fill="none">
+        <circle cx="18" cy="18" r="13" stroke="#2563EB" stroke-width="1.8" opacity="0.3"/>
+        <circle cx="18" cy="18" r="7" stroke="#2563EB" stroke-width="1.8"/>
+        <line x1="18" y1="3" x2="18" y2="11" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="18" y1="25" x2="18" y2="33" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="3" y1="18" x2="11" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="25" y1="18" x2="33" y2="18" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="18" cy="18" r="2.5" fill="#2563EB"/>
+      </svg>
+      <span class="footer-logo-text">ExecRadar</span>
+    </div>
+    <span class="footer-copy">© 2026 ExecRadar. Powered by Claude AI.</span>
+  </div>
+</footer>
 
 </body>
 </html>
